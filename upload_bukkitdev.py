@@ -5,11 +5,14 @@
 
 dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
 bukkitdev_en = True
+versions_url = "http://dev.bukkit.org/game-versions.json"
 
 ## IMPORTS
 
 from sys import argv, exit
 from lxml import etree
+import json
+from urllib2 import urlopen
 import re
 from os import sep, makedirs
 from os.path import dirname, basename, exists, isdir, join
@@ -72,6 +75,18 @@ for dependency in dependencies.findall(nms + "dependency"):
 if not bukkitver:
     bukkitdev_en = false
     print("Can not find bukkit version form pom file, not uploading to bukkitdev")
+
+
+## MATCH BUKKIT VERSION, skip if not uploading to bukkitdev
+
+if bukkitdev_en:
+    versions = json.loads(urlopen(versions_url).read())
+    for version, details in versions.iteritems():
+	if bukkitver in details["name"]:
+	    cursever = version
+    if not cursever:
+	print("No matching bukkit version found for bukkitDev")
+	bukkitdev_en = False
 
 
 ## DO OTHER STUFF
