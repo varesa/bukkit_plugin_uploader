@@ -1,11 +1,12 @@
 #!/bin/env python
 # Tool to copy given files to specific folder
 
-## Conf
+## CONFIGURATION
 
 dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
 
-##
+
+## IMPORTS
 
 from sys import argv, exit
 from lxml import etree
@@ -14,6 +15,8 @@ from os import sep, makedirs
 from os.path import dirname, basename, exists, isdir, join
 from shutil import copy2
 
+
+## CHECK ARGUMENT VALIDITY
 
 try:
     path = argv[1]
@@ -32,6 +35,7 @@ if not exists(pomfile) or isdir(pomfile):
     exit(-1)
 
 
+## PARSE POM
 
 pom = etree.parse(pomfile)
 pomroot = pom.getroot()
@@ -39,7 +43,7 @@ pomroot = pom.getroot()
 roottag = pomroot.tag
 nms = re.match("({.*})", roottag).group()
 
-print(etree.tostring(pomroot))
+#print(etree.tostring(pomroot))
 
 version  = pomroot.find(nms + "version").text
 groupid  = pomroot.find(nms + "groupId").text
@@ -47,6 +51,7 @@ artifact = pomroot.find(nms + "artifactId").text
 
 package = groupid + "." + artifact
 
+'''
 string = """
 File    : {file}
 Version : {ver}
@@ -55,9 +60,10 @@ GroupID : {group}
 Artifact: {artifact}
 """.format(file=path, ver=version, pkg=package, group=groupid, artifact=artifact)
 print(string)
+'''
 
 
-
+## DO OTHER STUFF
 
 if file == '' or version == '' or package == '':
     print('Path is not correctly formated')
