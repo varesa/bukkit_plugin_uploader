@@ -9,6 +9,7 @@ dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
 
 from sys import argv, exit
 from lxml import etree
+import re
 from os import sep, makedirs
 from os.path import dirname, basename, exists, isdir, join
 from shutil import copy2
@@ -43,9 +44,21 @@ if not exists(pomfile):
 pom = etree.parse(pomfile)
 pomroot = pom.getroot()
 
-print(pomroot.tag)
+roottag = pomroot.tag
+nms = re.match("({.*})", roottag).group()
+
 print(etree.tostring(pomroot))
 
+version  = pomroot.find(nms + "version").text
+groupid  = pomroot.find(nms + "groupId").text
+artifact = pomroot.find(nms + "artifactId").text
+
+package = groupid + "." + artifact
+
+print(version)
+print(groupid)
+print(artifact)
+print(package)
 
 
 if file == '' or version == '' or package == '':
