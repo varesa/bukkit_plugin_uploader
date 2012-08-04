@@ -1,8 +1,6 @@
 #!/bin/env python
 # Tool to copy given files to specific folder
 
-from lxml import etree
-
 ## Conf
 
 dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
@@ -10,9 +8,11 @@ dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
 ##
 
 from sys import argv, exit
+from lxml import etree
 from os import sep, makedirs
 from os.path import dirname, basename, exists, isdir, join
 from shutil import copy2
+
 try:
     if argv[1].count(sep) < 3:
 	print('Filename should be formated: pac/ka/ge/version/file')
