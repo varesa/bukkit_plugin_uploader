@@ -1,6 +1,8 @@
 #!/bin/env python
 # Tool to copy given files to specific folder
 
+from xml.dom.minidom import parse as parsexml
+
 ## Conf
 
 dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
@@ -32,11 +34,14 @@ Package: {pkg}
 """.format(file=file, ver=version, pkg=package)
 print(string)
 
-pom = path.replace('.jar','.pom')
+pomfile = path.replace('.jar','.pom')
 
-if not exists(pom):
-    print("Pomfile {pom} does not exist\n".format(pom=pom))
+if not exists(pomfile):
+    print("Pomfile {pom} does not exist\n".format(pom=pomfile))
     exit(-1)
+
+pom = parsexml(pomfile)
+print pom.toxml()
 
 if file == '' or version == '' or package == '':
     print('Path is not correctly formated')
