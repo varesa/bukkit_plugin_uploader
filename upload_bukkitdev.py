@@ -45,9 +45,9 @@ nms = re.match("({.*})", roottag).group()
 
 #print(etree.tostring(pomroot))
 
-version  = pomroot.find(nms + "version").text
-groupid  = pomroot.find(nms + "groupId").text
-artifact = pomroot.find(nms + "artifactId").text
+version  = pomroot.findtext(nms + "version")
+groupid  = pomroot.findtext(nms + "groupId")
+artifact = pomroot.findtext(nms + "artifactId")
 
 package = groupid + "." + artifact
 
