@@ -41,7 +41,12 @@ if not exists(pomfile):
     exit(-1)
 
 pom = etree.parse(pomfile)
-print etree.tostring(pom)
+pomroot = pom.getroot()
+
+print(pomroot.tag)
+print(etree.tostring(pomroot))
+
+
 
 if file == '' or version == '' or package == '':
     print('Path is not correctly formated')
