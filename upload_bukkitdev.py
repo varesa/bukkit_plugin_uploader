@@ -4,7 +4,7 @@
 ## CONFIGURATION
 
 dp_dir='/home/tomcat/Dropbox/bukkit_plugins'
-
+bukkitdev_en = True
 
 ## IMPORTS
 
@@ -61,6 +61,17 @@ Artifact: {artifact}
 """.format(file=path, ver=version, pkg=package, group=groupid, artifact=artifact)
 print(string)
 '''
+
+
+dependencies = pomroot.find(nms + "dependencies")
+for dependency in dependencies.findall(nms + "dependency"):
+    print(etree.tostring(dependency))
+    if dependency.findtext(nms + "groupId") == "org.bukkit" and dependency.findtext(nms + "artifactId") == "bukkit":
+	bukkitver = dependency.findtext(nms + "version")
+
+if not bukkitver:
+    bukkitdev_en = false
+    print("Can not find bukkit version form pom file, not uploading to bukkitdev")
 
 
 ## DO OTHER STUFF
