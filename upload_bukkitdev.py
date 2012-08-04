@@ -32,6 +32,12 @@ Package: {pkg}
 """.format(file=file, ver=version, pkg=package)
 print(string)
 
+pom = path.replace('.jar','.pom')
+
+if not exists(pom):
+    print("Pomfile {pom} does not exist\n".format(pom=pom))
+    exit(-1)
+
 if file == '' or version == '' or package == '':
     print('Path is not correctly formated')
     exit(-1)
