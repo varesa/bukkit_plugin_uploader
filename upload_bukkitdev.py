@@ -1,7 +1,7 @@
 #!/bin/env python
 # Tool to copy given files to specific folder
 
-from xml.dom.minidom import parse as parsexml
+from lxml import etree
 
 ## Conf
 
@@ -40,8 +40,8 @@ if not exists(pomfile):
     print("Pomfile {pom} does not exist\n".format(pom=pomfile))
     exit(-1)
 
-pom = parsexml(pomfile)
-print pom.toxml()
+pom = etree.parse(pomfile)
+print etree.tostring(pom)
 
 if file == '' or version == '' or package == '':
     print('Path is not correctly formated')
