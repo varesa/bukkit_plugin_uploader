@@ -24,16 +24,10 @@ except IndexError:
     print('Give a filename as first argument') 
     exit(-1)
 
-file = basename(path)
-version = basename(dirname(path))
-package = dirname(dirname(path))[2:].replace('/','.')
+#file = basename(path)
+#version = basename(dirname(path))
+#package = dirname(dirname(path))[2:].replace('/','.')
 
-string = """
-File: {file}
-Version: {ver}
-Package: {pkg}
-""".format(file=file, ver=version, pkg=package)
-print(string)
 
 pomfile = path.replace('.jar','.pom')
 
@@ -55,10 +49,14 @@ artifact = pomroot.find(nms + "artifactId").text
 
 package = groupid + "." + artifact
 
-print(version)
-print(groupid)
-print(artifact)
-print(package)
+string = """
+File    : {file}
+Version : {ver}
+Package : {pkg}
+GroupID : {group}
+Artifact: {artifact}
+""".format(file=path, ver=version, pkg=package, group=groupid, artifact=artifact)
+print(string)
 
 
 if file == '' or version == '' or package == '':
